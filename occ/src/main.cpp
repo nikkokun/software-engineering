@@ -9,7 +9,6 @@
 using namespace std;
 
 int main() {
-  std::cout << "Hello, World!" << std::endl;
   const int NUM_TRANSACTIONS = 10000;
   const int NUM_ROWS = 10000;
   const int NUM_OPERATIONS = 20;
