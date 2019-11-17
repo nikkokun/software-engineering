@@ -16,7 +16,7 @@ make
 ```bash
 mkdir·Debug
 cd·Debug
-cmake·-DCMAKE_BUILDTYPE=Debug·..
+cmake -DCMAKE_BUILDTYPE=Release ..
 make
 ./main
 ```
