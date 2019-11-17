@@ -9,6 +9,7 @@
 using namespace std;
 
 int main() {
+
   const int NUM_TRANSACTIONS = 10000;
   const int NUM_ROWS = 10000;
   const int NUM_OPERATIONS = 20;
