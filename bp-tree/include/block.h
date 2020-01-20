@@ -29,11 +29,7 @@ class Block {
   Node* get_right();
   Node* set_right(Node* node);
 
-
   Block();
-//  Block(int key);
-//  Block(int key, Node* left);
-//  Block(int key, Node* left, Node* right);
   ~Block();
 };
 
