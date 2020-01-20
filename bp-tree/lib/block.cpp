@@ -51,4 +51,6 @@ Block::Block() {
 Block::~Block() {
   Block::left = nullptr;
   Block::right = nullptr;
+  Block::value = -1;
+  Block::key = -1;
 }

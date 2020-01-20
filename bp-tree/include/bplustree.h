@@ -23,6 +23,7 @@ class BPlusTree {
   int insert(int key);
   int search(int key);
   void print_tree();
+  ~BPlusTree();
 };
 
 

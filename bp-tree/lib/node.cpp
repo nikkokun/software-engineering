@@ -159,6 +159,8 @@ Node::~Node() {
   for(Block block : Node::blocks) {
     block.set_left(nullptr);
     block.set_right(nullptr);
+    block.set_key(-1);
   }
+  Node::neighbor = nullptr;
   Node::parent = nullptr;
 }

@@ -19,8 +19,8 @@ class Node {
   bool is_leaf = true;
   int key_count = 0;
   Block blocks[NODE_SIZE];
-  Node* neighbor;
-  Node* parent;
+  Node* neighbor = nullptr;
+  Node* parent = nullptr;
 
  public:
   bool get_is_leaf();
