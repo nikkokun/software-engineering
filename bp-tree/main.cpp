@@ -12,5 +12,7 @@ int main() {
     bptree->insert(i);
   }
 
+  delete bptree;
+
   return 0;
 }
