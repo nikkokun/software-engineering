@@ -105,3 +105,24 @@ void BPlusTree::print_tree() {
     current_node = current_node->get_left_most();
   }
 }
+
+BPlusTree::~BPlusTree() {
+  Node* current_node = BPlusTree::get_root();
+  Node * next_node = current_node->get_left_most();
+  while(next_node != nullptr) {
+    current_node = current_node->get_left_most();
+    next_node = current_node->get_left_most();
+  }
+  Node* parent_node = current_node->get_parent();
+  while(parent_node != nullptr) {
+    if(current_node != nullptr) {
+      next_node = current_node->get_neighbor();
+      delete current_node;
+      current_node = next_node;
+    } else {
+      current_node = parent_node;
+      parent_node = current_node->get_parent();
+    }
+  }
+  delete current_node;
+}
