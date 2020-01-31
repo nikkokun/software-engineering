@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(occ)
+project(kung-robinson)
 
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(include)
-add_executable(occ src/main.cpp)
+add_executable(kung-robinson src/main.cpp)
