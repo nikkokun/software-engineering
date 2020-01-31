@@ -31,6 +31,13 @@ class TransactionLog {
     TransactionRecord new_record = TransactionRecord(get_latest_record() + 1, write_set);
   };
 
+  void collect_garbage() {
+    int latest_record = TransactionLog::get_latest_record();
+    for(int i = 0; i < latest_record; ++i) {
+      TransactionLog::records.erase(TransactionLog::records.begin());
+    }
+  }
+
   TransactionLog(TransactionLog const &transaction_log) {
     TransactionLog::records = transaction_log.records;
   }

@@ -48,6 +48,9 @@ void worker(vector<Row> &table, vector<vector<int>> random_transactions, Transac
     transaction_log.global_lock.lock();
     int tx_end_id = transaction_log.get_latest_record();
 
+    //garbage collection section
+    transaction_log.collect_garbage();
+
     // check validity
     for(int i = tx_start_id + 1; i < tx_end_id; ++i) {
       vector<int> previous_transaction_write_set = transaction_log.get_record(i).get_write_set();
@@ -76,6 +79,7 @@ void worker(vector<Row> &table, vector<vector<int>> random_transactions, Transac
       random_transactions.push_back(random_transaction);
     }
 
+    //finish transaction
     sorted_transactions.erase(sorted_transactions.begin());
     random_transactions.erase(random_transactions.begin());
     transaction_log.global_lock.unlock();
