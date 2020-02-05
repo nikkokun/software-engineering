@@ -4,6 +4,7 @@
 #include <iostream>
 #include <node.h>
 #include <block.h>
+#include <vector>
 
 using namespace bptree;
 
@@ -32,6 +33,14 @@ int Node::get_key_count() {
 int Node::set_key_count(int count) {
   Node::key_count = count;
   return Node::key_count;
+}
+
+std::vector<int> Node::get_keys() {
+  std::vector<int> result;
+  for(Block block : Node::blocks) {
+    result.push_back(block.get_key());
+  }
+  return result;
 }
 
 Node* Node::get_neighbor() {
@@ -74,10 +83,25 @@ void Node::shift_right(int index) {
   int current_index = index;
   int prev = -1;
   int current = -1;
+
+  Node* prev_left = Node::blocks[current_index -1].get_left();;
+  Node* prev_right = Node::blocks[current_index -1].get_right();;
+  Node* current_left = nullptr;
+  Node* current_right = nullptr;
+
   while(current_index < NODE_SIZE) {
     current = Node::blocks[current_index].get_key();
+    current_left = Node::blocks[current_index].get_left();
+    current_right = Node::blocks[current_index].get_right();
+
     Node::blocks[current_index].set_key(prev);
+    Node::blocks[current_index].set_left(prev_left);
+    Node::blocks[current_index].set_right(prev_right);
+
+
     prev = current;
+    prev_left = current_left;
+    prev_right = current_right;
     ++current_index;
   }
 }
@@ -90,6 +114,9 @@ int Node::insert_internal(int key, bptree::Node *leaf, bptree::Node *new_leaf) {
       Node::shift_right(current);
       Node::blocks[current].set_key(key);
       Node::blocks[current].set_left(leaf);
+      if(current+1 < NODE_SIZE) {
+        Node::blocks[current+1].set_left(new_leaf);
+      }
       Node::blocks[current].set_right(new_leaf);
       leaf->set_parent(this);
       new_leaf->set_parent(this);

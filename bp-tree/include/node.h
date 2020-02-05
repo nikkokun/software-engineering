@@ -29,6 +29,8 @@ class Node {
   int get_key_count();
   int set_key_count(int count);
 
+  std::vector<int> get_keys();
+
   Node* get_parent();
   Node* set_parent(Node* parent);
 

@@ -15,6 +15,7 @@ Node* BPlusTree::set_root(Node* node) {
 }
 
 int BPlusTree::insert_in_parent(bptree::Node* node, bptree::Node *new_node, int key) {
+  new_node->set_neighbor(node->get_neighbor());
   node->set_neighbor(new_node);
   if(BPlusTree::get_root() == node) {
     auto new_parent_node = new Node();
