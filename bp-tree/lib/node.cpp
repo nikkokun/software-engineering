@@ -84,8 +84,17 @@ void Node::shift_right(int index) {
   int prev = -1;
   int current = -1;
 
-  Node* prev_left = Node::blocks[current_index -1].get_left();;
-  Node* prev_right = Node::blocks[current_index -1].get_right();;
+
+
+  Node* prev_left = nullptr;
+  Node* prev_right = nullptr;
+
+  if (current_index > 0) {
+      prev_left = Node::blocks[current_index - 1].get_left();
+      prev_left = Node::blocks[current_index - 1].get_right();
+  }
+
+
   Node* current_left = nullptr;
   Node* current_right = nullptr;
 
@@ -95,13 +104,15 @@ void Node::shift_right(int index) {
     current_right = Node::blocks[current_index].get_right();
 
     Node::blocks[current_index].set_key(prev);
-    Node::blocks[current_index].set_left(prev_left);
-    Node::blocks[current_index].set_right(prev_right);
-
-
     prev = current;
-    prev_left = current_left;
-    prev_right = current_right;
+
+    if (!Node::is_leaf) {
+        Node::blocks[current_index].set_left(prev_left);
+        Node::blocks[current_index].set_right(prev_right);
+        prev_left = current_left;
+        prev_right = current_right;
+    }
+
     ++current_index;
   }
 }
@@ -113,11 +124,13 @@ int Node::insert_internal(int key, bptree::Node *leaf, bptree::Node *new_leaf) {
     if(key <= Node::blocks[current].get_key() || Node::blocks[current].get_key() == -1) {
       Node::shift_right(current);
       Node::blocks[current].set_key(key);
-      Node::blocks[current].set_left(leaf);
-      if(current+1 < NODE_SIZE) {
-        Node::blocks[current+1].set_left(new_leaf);
+      if (!Node::is_leaf) {
+          Node::blocks[current].set_left(leaf);
+          if (current + 1 < NODE_SIZE) {
+              Node::blocks[current + 1].set_left(new_leaf);
+          }
+          Node::blocks[current].set_right(new_leaf);
       }
-      Node::blocks[current].set_right(new_leaf);
       leaf->set_parent(this);
       new_leaf->set_parent(this);
       ++Node::key_count;

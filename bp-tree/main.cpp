@@ -22,8 +22,9 @@ int main() {
   auto bptree2 = new BPlusTree();
   for (int i = 1; i < 20; ++i) {
     bptree2->insert(i);
-    bptree2->print_tree();
   }
+
+  bptree2->print_tree();
 
 
   auto bptree3 = new BPlusTree();
